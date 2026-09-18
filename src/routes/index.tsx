@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Braces, Check, ChevronRight, CircleDot, Code2, Database, Github, Menu, Network, Sparkles, X, Zap } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import rememberLogo from "../assets/remember-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -88,7 +89,7 @@ function RememberPage() {
   </main>
 }
 
-function Logo(){return <span className="relative flex h-7 w-7 items-center justify-center rounded-md border border-primary/40 bg-primary/10"><span className="h-2.5 w-2.5 rounded-full border border-primary shadow-[0_0_10px_var(--primary)]"/></span>}
+function Logo(){return <img src={rememberLogo.url} alt="Remember logo" className="h-8 w-8 shrink-0 rounded-md object-cover"/>}
 function HeroMetric({label,value}:{label:string;value:string}){return <div className="px-2 text-left sm:px-5"><span className="block font-mono text-[8px] uppercase tracking-[.14em] text-gold">{label}</span><strong className="mt-1 block text-[10px] font-medium text-muted-foreground sm:text-xs">{value}</strong></div>}
 function FooterLinks({title,links}:{title:string;links:string[][]}){return <div><p className="font-mono text-[9px] uppercase tracking-[.18em] text-gold">{title}</p><nav className="mt-5 grid gap-3">{links.map(([label,href])=><a key={label} href={href} className="w-fit text-sm text-muted-foreground transition-colors hover:text-primary">{label}</a>)}</nav></div>}
 function Section({id,eyebrow,title,copy,children}:{id?:string;eyebrow:string;title:string;copy:string;children:ReactNode}){return <section id={id} className="px-5 py-28"><div className="mx-auto max-w-6xl"><SectionHead eyebrow={eyebrow} title={title} copy={copy}/><div className="mt-14">{children}</div></div></section>}
