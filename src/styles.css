@@ -189,6 +189,9 @@
 @keyframes scan { 0% { transform: translateY(-100%); opacity: 0; } 20%,70% { opacity: 1; } 100% { transform: translateY(500%); opacity: 0; } }
 @keyframes blink { 50% { opacity: .2; } }
 @keyframes stack-in { 0%,12% { transform: translateX(-12px); opacity: .15; } 42%,100% { transform: none; opacity: 1; } }
+@keyframes aura-breathe { 50% { opacity: .72; transform: translate(-50%, -50%) scale(1.07); } }
+@keyframes aura-turn { to { transform: rotate(360deg); } }
+@keyframes beam-pulse { 50% { opacity: .45; } }
 
 .network-line { stroke-dasharray: 5 11; animation: dash 7s linear infinite; }
 .memory-core { transform-box: fill-box; transform-origin: center; animation: pulse-core 5s ease-in-out infinite; }
@@ -201,6 +204,35 @@
 .context-block:nth-child(2n) { animation-delay: -.4s; }
 .context-block:nth-child(3n) { animation-delay: -.8s; }
 .terminal-cursor { animation: blink 1s step-end infinite; }
+
+.hero-aura { isolation: isolate; }
+.aura-field {
+  position: absolute; left: 50%; top: 46%; width: min(92vw, 920px); aspect-ratio: 1;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--gold) 12%, transparent) 0 3%, color-mix(in oklab, var(--emerald-bright) 22%, transparent) 7%, color-mix(in oklab, var(--emerald) 13%, transparent) 25%, transparent 67%);
+  filter: blur(24px); animation: aura-breathe 8s ease-in-out infinite;
+}
+.aura-horizon { position:absolute; left:8%; right:8%; top:54%; height:1px; background:linear-gradient(90deg,transparent,var(--line),var(--emerald),var(--line),transparent); box-shadow:0 0 34px color-mix(in oklab,var(--emerald) 28%,transparent); }
+.aura-rings { transform-origin: 600px 370px; stroke-width:.7; stroke-dasharray:2 10; animation:aura-turn 80s linear infinite; }
+.aura-orbit { stroke-width:1; stroke-dasharray:3 18; animation:dash 12s linear infinite; }
+.aura-orbit-gold { animation-direction:reverse; animation-duration:16s; }
+.aura-core { position:absolute; left:50%; top:46%; width:112px; height:112px; transform:translate(-50%,-50%); border:1px solid color-mix(in oklab,var(--emerald) 38%,transparent); border-radius:50%; box-shadow:0 0 80px color-mix(in oklab,var(--emerald) 25%,transparent), inset 0 0 35px color-mix(in oklab,var(--emerald) 16%,transparent); }
+.aura-core::before,.aura-core::after { content:""; position:absolute; inset:13px; border:1px dashed color-mix(in oklab,var(--gold) 35%,transparent); border-radius:50%; animation:aura-turn 24s linear infinite; }
+.aura-core::after { inset:38px; border-style:solid; background:var(--gold); box-shadow:0 0 24px var(--gold); }
+.aura-core span { position:absolute; inset:-11px; border-top:1px solid var(--emerald-bright); border-radius:50%; animation:aura-turn 10s linear infinite; }
+.hero-memory-text { color:var(--emerald-bright); text-shadow:0 0 48px color-mix(in oklab,var(--emerald) 36%,transparent); }
+.status-pulse { box-shadow:0 0 12px var(--emerald); animation:beam-pulse 2.4s ease-in-out infinite; }
+.scroll-beam { position:fixed; z-index:35; right:20px; top:23%; width:1px; height:54vh; background:color-mix(in oklab,var(--line) 55%,transparent); pointer-events:none; }
+.scroll-beam span { position:absolute; left:0; top:0; width:1px; background:linear-gradient(to bottom,var(--gold),var(--emerald-bright)); box-shadow:0 0 12px var(--emerald); transition:height .15s linear; }
+.scroll-beam i { position:absolute; left:50%; width:7px; height:7px; transform:translate(-50%,-50%); border-radius:50%; background:var(--emerald-bright); box-shadow:0 0 18px 4px color-mix(in oklab,var(--emerald) 45%,transparent); transition:top .15s linear; }
+.footer-aura { background:linear-gradient(90deg,transparent,var(--gold),var(--emerald-bright),transparent); opacity:.55; box-shadow:0 0 28px color-mix(in oklab,var(--emerald) 22%,transparent); }
+
+@media (max-width: 767px) {
+  .scroll-beam { right:8px; opacity:.65; }
+  .aura-core { width:82px; height:82px; }
+  .aura-core::after { inset:27px; }
+  .aura-field { width:130vw; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
